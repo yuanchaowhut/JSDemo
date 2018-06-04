@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全选与反选</title>
+    <style type="text/css">
+        div{
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+        }
+        .country{
+
+        }
+        #selectAll,#selectOppsite,#selectNone{
+            margin-top: 20px;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var all = document.getElementById("selectAll");
+            var none = document.getElementById("selectNone");
+            var opposite = document.getElementById("selectOpposite");
+            all.onclick = selectAll;
+            none.onclick = selectNone;
+            opposite.onclick = selectOpposite;
+        }
+        function selectAll() {
+            var countries = document.getElementsByClassName("country");
+            for(var i=0;i<countries.length;i++){
+                countries[i].checked = true;
+            }
+        }
+        function selectNone() {
+            var countries = document.getElementsByClassName("country");
+            for(var i=0;i<countries.length;i++){
+                countries[i].checked = false;
+            }
+        }
+        function selectOpposite() {
+            var countries = document.getElementsByClassName("country");
+            for(var i=0;i<countries.length;i++){
+                countries[i].checked = !countries[i].checked;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <input class="country" type="checkbox" />中国<br/>
+        <input class="country" type="checkbox" />美国<br/>
+        <input class="country" type="checkbox" />俄罗斯<br/>
+        <input class="country" type="checkbox" />德国<br/>
+        <input class="country" type="checkbox" />英国<br/>
+        <input id="selectAll" type="button" value="全选" />
+        <input id="selectNone" type="button" value="不选" />
+        <input id="selectOpposite" type="button" value="反选" />
+    </div>
+</body>
+</html>

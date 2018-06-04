@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style type="text/css">
+        #wrap{
+            width: 480px;
+            height: 800px;
+            overflow: hidden;
+            position: relative;
+        }
+        #wrap ul{
+            list-style: none;
+            position: absolute;
+            top: 700px;
+            left: 150px;
+        }
+        #wrap li
+        {
+            margin-left:2px;
+            opacity: .3;
+            filter: alpha(opacity=30);
+            text-align: center;
+            line-height: 30px;
+            font-size: 20px;
+            height: 30px;
+            width: 30px;
+            background-color: #fff;
+            float: left;
+            border-radius:3px;
+            cursor:pointer;
+        }
+        #slider
+        {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+        #slider img
+        {
+            float: left;
+            border: none;
+        }
+    </style>
+    <script type="text/javascript">
+        var flag=0;
+        var timer = 0;
+        window.onload = function () {
+            slider = document.getElementById("slider");
+            lis = document.getElementsByTagName("li");
+            //默认选中第1个.
+            lis[0].style.backgroundColor = "#666666";
+            //通过setInterval实现轮巡.
+            timer = setInterval("turn();",1000);
+            slider.onmouseover = function () {
+                clearInterval(timer);
+            }
+            slider.onmouseout = function () {
+                timer = setInterval("turn();",1000);
+            }
+            for(var i=0;i<lis.length;i++){
+                lis[i].onmouseover = function () {
+                    turn(this.innerHTML,slider,lis);
+                    clearInterval(timer);
+                }
+                lis[i].onmouseout = function () {
+                    setInterval("turn();",1000);
+                }
+            }
+
+        }
+
+        function turn(value){
+            if(value!=null){
+                flag = value-2; //value是选中的li标签的序号(从1开始),value-1即选中li标签在lis中的索引,这里value-2是因为后面会++,配合代码的需要罢了.
+            }
+            if(flag<lis.length-1){
+                flag++;
+            }else{
+                flag=0;
+            }
+
+            //设置div的位置,以实现切换图片.
+            slider.style.left = flag*(-480)+"px";
+//            slider.style.top = flag*(-800)+"px";
+
+            //切换li标签的背景颜色.
+            for(var i=0;i<lis.length;i++){
+                lis[i].style.backgroundColor = "#ffffff";
+            }
+            lis[flag].style.backgroundColor = "#666666";
+        }
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="slider">
+        <a><img src="../images/guide_1.jpg" alt="guide_1"/></a>
+        <a><img src="../images/guide_2.jpg" alt="guide_3"/></a>
+        <a><img src="../images/guide_3.jpg" alt="guide_3"/></a>
+        <a><img src="../images/guide_4.jpg" alt="guide_4"/></a>
+    </div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+</body>
+</html>

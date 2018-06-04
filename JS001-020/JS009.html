@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>隔行变色</title>
+
+    <style type="text/css">
+        input{
+            margin: auto 600px;
+        }
+        table{
+            border-collapse: collapse;
+            margin:20px auto;
+            font-family: "微软雅黑";
+        }
+        table td{
+            border: solid 1px #0094ff;
+            padding: 5px 5px;
+            text-align: center;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function createTable() {
+            var div = document.getElementById("div");
+            var table = document.createElement("table");
+            var tbody = document.createElement("tbody");
+            for(var i=1;i<20;i++){
+                var tr = document.createElement("tr");
+                tr.onmouseover = mouseOver;
+                tr.onmouseout = mouseOut;
+                if(i%2==0){
+                    tr.style.backgroundColor = "#d9ead3";
+                }else{
+                    tr.style.backgroundColor = "#f9cb9c";
+                }
+                tbody.appendChild(tr);
+                for(var j=1;j<6;j++){
+                    var td = document.createElement("td");
+                    td.innerHTML = "单元格"+i+j;
+                    tr.appendChild(td);
+                    td.onclick = click;
+                }
+            }
+            table.appendChild(tbody);
+            div.appendChild(table);
+        }
+
+        function mouseOver() {
+            var oldStyle = this.style.backgroundColor;
+            this.setAttribute("oldStyle",oldStyle);
+            this.style.backgroundColor = "#CCFF66";
+        }
+        function mouseOut() {
+            var oldStyle  = this.getAttribute("oldStyle");
+            this.style.backgroundColor = oldStyle;
+        }
+        function click() {
+            alert(this.innerHTML);
+        }
+    </script>
+</head>
+<body>
+    <input id="btn" type="button" value="创建表格" onclick="createTable()" />
+    <div id="div"></div>
+</body>
+</html>

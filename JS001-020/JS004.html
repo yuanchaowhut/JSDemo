@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04打印页面出错原因</title>
+
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                try{
+                    var x = new Test();
+                }catch(e){
+                    document.write(e.description);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <button id="btn" type="button">打印错误</button>
+    </div>
+</body>
+</html>

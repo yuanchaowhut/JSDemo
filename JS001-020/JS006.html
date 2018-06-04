@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculate</title>
+    <style type="text/css">
+        #total {
+            border: 1px solid #0094ff;
+            width: 300px;
+            height: 500px;
+            margin: 20px auto;
+        }
+
+        #tvResult {
+            width: 250px;
+            height: 30px;
+            margin: 10px 20px;
+        }
+
+        #symbol {
+            border-top: 1px solid #0094ff;
+            border-bottom: 1px solid #0094ff;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        #symbol input {
+            margin: 2px 2px 2px 2px;
+            width: 50px;
+            height: 20px;
+        }
+
+        #num {
+            margin: auto 10px;
+        }
+
+        #num input {
+            margin: 10px 10px 10px 10px;
+            width: 50px;
+            height: 20px;
+        }
+    </style>
+    <script type="text/javascript">
+        //定义全局变量
+        var result; 			//文本框对象
+        var previousResult;		//上一次的结果
+        var currentResult;		//这一次的结果
+        window.onload = function () {
+            //数字,运算符等
+            var nums = document.getElementsByClassName("numbers");
+            for (var i = 0; i < nums.length; i++) {
+                nums[i].onclick = function () {
+                    show(this);
+                }
+            }
+
+            var symbols = document.getElementsByClassName("symbols");
+            for (var i = 0; i < symbols.length; i++) {
+                symbols[i].onclick = function () {
+                    show(this);
+                }
+            }
+
+            //功能按钮
+            var functions = document.getElementsByClassName("functions");
+            for (var i = 0; i < functions.length; i++) {
+                functions[i].onclick = function () {
+                    excute(this);
+                }
+            }
+        }
+
+        //方法一:单击数字键or符号键显示在文本框中的方法.
+        function show(input) {
+            result = document.getElementById("tvResult");
+            previousResult = result.value;					//上一次的结果
+            result.setAttribute("previousResult", previousResult);//存储
+            //对文本框中的值校验一下,不允许同时出现多个运算符.如果上次的结果最后一个字符是运算符,则不允许紧接着来一个运算符.
+            var lastChar = previousResult.charAt(previousResult.length - 1);
+            if (lastChar == "+" || lastChar == "-" || lastChar == "*" || lastChar == "/" || lastChar == "%" || lastChar == ".") {
+                if (input.value == "+" || input.value == "-" || input.value == "*" || input.value == "/" || input.value == "%" || input.value == ".") {
+                    currentResult = previousResult;
+                    result.setAttribute("currentResult", currentResult);//存储
+                    alert("亲,您输入有误,不要连续2次输入运算符哦!");
+                    return;
+                }
+            }
+            currentResult = previousResult + input.value;	//这一次的结果
+            result.setAttribute("currentResult", currentResult);//存储
+            //文本框显示当前结果.
+            result.value = currentResult;
+        }
+
+        function excute(input) {
+            var value = input.value;
+            var result = document.getElementById("tvResult");
+            if("ON"==value){
+                result.value = "";
+                result.disabled=false;
+                result.focus();
+            }else if("OFF"==value){
+                result.value = "";
+                result.disabled = true;
+            }else if("C"==value){
+                var value = result.value.substr(0,result.value.length-1);
+                result.value = value;
+                result.focus();
+            }else if("B"==value){
+               var previousResult = result.getAttribute("previousResult") ;
+               result.value = previousResult;
+            }else if("N"==value){
+                var currentResult = result.getAttribute("currentResult") ;
+                result.value = currentResult;
+            }else if("="==value){
+                var previousResult = result.value;
+                result.setAttribute("previousResult",previousResult);
+                var currentResult = eval(result.value);
+                result.value = currentResult;
+                result.setAttribute("currentResult",currentResult);
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="total">
+    <div id="result">
+        <input type="text" id="tvResult"/>
+    </div>
+    <div id="symbol">
+        <input class="functions" type="button" value="ON"/>
+        <input class="functions" type="button" value="OFF"/>
+        <input class="functions" type="button" value="C"/>
+        <input class="functions" type="button" value="B"/>
+        <input class="functions" type="button" value="N"/><br/>
+        <input class="symbols" type="button" value="+"/>
+        <input class="symbols" type="button" value="-"/>
+        <input class="symbols" type="button" value="*"/>
+        <input class="symbols" type="button" value="/"/>
+        <input class="symbols" type="button" value="%"/>
+    </div>
+    <div id="num">
+        <input class="numbers" type="button" value="1"/>
+        <input class="numbers" type="button" value="2"/>
+        <input class="numbers" type="button" value="3"/><br/>
+        <input class="numbers" type="button" value="4"/>
+        <input class="numbers" type="button" value="5"/>
+        <input class="numbers" type="button" value="6"/><br/>
+        <input class="numbers" type="button" value="7"/>
+        <input class="numbers" type="button" value="8"/>
+        <input class="numbers" type="button" value="9"/><br/>
+        <input class="numbers" type="button" value="0"/>
+        <input class="numbers" type="button" value="."/>
+        <input class="functions" type="button" value="="/>
+    </div>
+</div>
+</body>
+</html>

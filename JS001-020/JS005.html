@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>02页面的前进后退和刷新</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            var value = $("#countDown").text();
+            var start = new Number(value);
+            var timer = setInterval(function () {
+                start--;
+                if(start>0){
+                    $("#countDown").text(start);
+                }else{
+                    clearInterval(timer);
+                    window.location.href = "http://www.baidu.com";
+                }
+            },1000);
+        });
+    </script>
+
+    <style>
+        #countDown{
+            display: block;
+            width:100%;
+            height: 50px;
+            text-align: center;
+            font-family: '微软雅黑';
+            font-size: 50px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span id="countDown">10</span>
+</div>
+</body>
+</html>
