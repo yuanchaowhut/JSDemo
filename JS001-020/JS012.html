@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>012将函数的某个参数变为可选参数</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/jquery-3.2.1.min.js"></script>
+
+    <script>
+        //foo(a[,b],c)  表示接收2-3个参数，其中b是可选参数.
+        function foo(a, b, c) {
+            var count = arguments.length;
+            //如果传入参数少于2个则直不往下执行
+            if (count < 2) {
+                alert("必须传入至少2个参数");
+                return;
+            }
+            //如果只传入2个参数则将第2个参数给c,b置位null
+            if (count === 2) {
+                c = b;
+                b = null;
+            }
+
+            alert("a:" + a + ", b:" + b + ", c:" + c);
+        }
+
+        $(function () {
+            $("#btn1").click(function () {
+                foo(1)
+            });
+            $("#btn2").click(function () {
+                foo(1, 2)
+            });
+            $("#btn3").click(function () {
+                foo(1, 2, 3)
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <button id="btn1" type="button" class="btn btn-default">传入1个参数</button>
+    <button id="btn2" type="button" class="btn btn-primary">传入2个参数</button>
+    <button id="btn3" type="button" class="btn btn-info">传入3个参数</button>
+</div>
+</body>
+</html>

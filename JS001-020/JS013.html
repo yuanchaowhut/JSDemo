@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>013使用闭包给多个DOM对象绑定事件</title>
+
+    <script>
+        //版本1：达不到效果，i的值为4
+        //        window.onload = function () {
+        //            var divs = document.getElementsByTagName("div");
+        //            for (var i = 0; i < divs.length; i++) {
+        //                var d = divs[i];
+        //                d.addEventListener("click", function () {
+        //                    alert("第" + i + "个div:" + this.innerHTML);
+        //                });
+        //            }
+        //        }
+
+        //第2个版本通过动态添加属性的方式绑定循环变量
+        //        window.onload = function () {
+        //            var divs = document.getElementsByTagName("div");
+        //            for (var i = 0; i < divs.length; i++) {
+        //                var d = divs[i];
+        //                d.index = i;    //将变量i绑定到d对象上,后面i发生变化，d.index不会
+        //                d.addEventListener("click", function () {
+        //                    alert("第" + this.index + "个div:" + this.innerHTML);
+        //                });
+        //            }
+        //        }
+
+        //第三个使用闭包.
+        //1、返回闭包时牢记的一点就是：返回函数不要引用任何循环变量，或者后续会发生变化的变量。
+        //2、如果一定要引用循环变量怎么办？方法就是创建一个立即执行函数包裹原来的函数(原函数使用return语句返回),
+        // 将循环变量作为外层函数的实际参数传入。
+        //所谓闭包就是：能够读取其他函数内部变量的函数，闭包可以理解成“定义在一个函数内部的函数“。
+        window.onload = function () {
+            var divs = document.getElementsByTagName("div");
+            for (var i = 0; i < divs.length; i++) {
+                var d = divs[i];
+                d.addEventListener("click", function (n) {
+                    return function () {
+                        alert("第" + n + "个div:" + this.innerHTML);
+                    }
+                }(i));
+            }
+        }
+    </script>
+</head>
+<body>
+<div>1111111</div>
+<div>2222222</div>
+<div>3333333</div>
+<div>4444444</div>
+</body>
+
+</html>

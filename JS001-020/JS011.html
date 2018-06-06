@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>011判断文档是否添加了W3C声明</title>
+
+    <script>
+      if(document.compatMode=='CSS1Compat'){
+          alert('本文档已经添加了W3C声明')
+      }else{
+          alert('本文档未添加了W3C声明')
+      }
+    </script>
+</head>
+<body>
+  <div>
+      Hello,World!
+  </div>
+</body>
+</html>
