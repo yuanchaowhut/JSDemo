@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04数组的map、reduce、filter等高阶函数</title>
+    <!--所谓高阶函数即接收函数作为参数的函数-->
+
+    <script src="../lib/js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#map").click(function () {
+                //map实例:利用数组的map方法对每一个元素进行变换
+                var arr = [1, 2, 3, 4, 5, 6];
+                //1.参数含义：el:遍历的每个元素；index:遍历到的元素的索引；self:arr数组本身
+                //2.map方法实际上是对数组内的每个元素依次调用function
+                var result = arr.map(function (el, index, self) {
+                    console.log(index);
+                    console.log(self);
+                    return el * el;
+                });
+
+                console.log(result);
+            });
+
+            $("#reduce").click(function () {
+                //reduce实例1:利用数组的reduce求所有元素的总和
+                //1.reduce方法是将e1,e2的function返回结果作为参数e2'和e3组成新的参数对：e2',e3; e3',e4; e4',e5 .....
+                var arr1 = [1, 2, 3, 4, 5, 6];
+                var result1 = arr1.reduce(function (x, y) {
+                    return x + y;
+                });
+                alert("数组arr1求和结果：" + result1);
+
+                //reduce实例2:利用数组的reduce求数组的最大值
+                var arr2 = [1, 5, 3, 8, 9, 6];
+                var result2 = arr2.reduce(function (x, y) {
+                    return x > y ? x : y;
+                });
+                alert("数组arr2元素的最大值：" + result2);
+            });
+
+
+            $("#filter").click(function () {
+                //filter实例:利用数组的filter方法去重
+                var arr = ['A', 'B', 'C', 'C', 'B', 'A', 'D'];
+                //1.参数含义：el:遍历的每个元素；index:遍历到的元素的索引；self:arr数组本身
+                //2.filter方法只添加return true的元素；
+                //3.如果之前添加过(即重复元素)则self.indexOf()的结果一定是前一个元素的index
+                var result = arr.filter(function (el, index, self) {
+                    return self.indexOf(el) == index;
+                });
+                console.log("去重后的结果为：" + result);
+            });
+        })
+
+    </script>
+
+</head>
+<body>
+<button id="map" type="button">map实例</button>
+<button id="reduce" type="button">reduce实例</button>
+<button id="filter" type="button">filter实例</button>
+</body>
+</html>
