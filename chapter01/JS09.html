@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09自动识别网页类型</title>
+
+    <script>
+        let url = window.location.href;
+        distinguishWebPage(url,'.htm');
+        distinguishWebPage(url,'.html');
+        distinguishWebPage(url,'.shtml');
+        distinguishWebPage(url,'.phtml');
+        distinguishWebPage(url,'.aspx');
+
+        function distinguishWebPage(url,suffix) {
+            //.html包含了.htm
+            if(suffix==='.htm'){
+                let res = url.indexOf('.html');
+                if(res>-1){
+                    return;
+                }
+            }
+
+            let res = url.indexOf(suffix);
+            if(res>-1){
+                document.write('这是一个'+suffix+'网页文件');
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

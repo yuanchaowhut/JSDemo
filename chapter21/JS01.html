@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>01获取url相关信息</title>
+
+    <link href="../lib/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../lib/js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#btnGet").click(function () {
+                var serverUrl = getServerUrl();
+                console.log(`serverUrl---->${serverUrl}`);
+                $("#content").append("<h1>URL获取</h1>");
+                $("#content").append("<p>serverUrl---->" + serverUrl + "</p>");
+            });
+
+            $("#btnParse").click(function () {
+                console.log(`href---->${window.location.href}`);
+                console.log(`protocol---->${window.location.protocol}`);
+                console.log(`host---->${window.location.host}`);
+                console.log(`hostname---->${window.location.hostname}`);
+                console.log(`port---->${window.location.port}`);
+                console.log(`pathname---->${window.location.pathname}`);
+                console.log(`search---->${window.location.search}`);
+
+                $("#content").append("<h1>URL解析</h1>");
+                $("#content").append("<p>href---->" + window.location.href + "</p>");
+                $("#content").append("<p>protocol---->" + window.location.protocol + "</p>");
+                $("#content").append("<p>host---->" + window.location.host + "</p>");
+                $("#content").append("<p>hostname---->" + window.location.hostname + "</p>");
+                $("#content").append("<p>port---->" + window.location.port + "</p>");
+                $("#content").append("<p>pathname---->" + window.location.pathname + "</p>");
+                $("#content").append("<p>search---->" + window.location.search + "</p>");
+
+            });
+        });
+
+        function getServerUrl() {
+            var serverUrl = null;
+            var host = window.location.protocol + "//" + window.location.host;
+            var array = window.location.href.split(host);
+            if (array != null && array.length > 1) {
+                var fixUrl = array[1];
+                array = fixUrl.split("/");
+                if (array != null && array.length > 1) {
+                    serverUrl = host + "/" + array[1];
+                }
+            }
+            return serverUrl;
+        }
+    </script>
+
+</head>
+<body>
+<div class="container">
+    <button id="btnGet" class="btn btn-info btn-lg" type="button">获取URL</button>
+    <button id="btnParse" class="btn btn-primary btn-lg">解析URL</button>
+    <div id="content"></div>
+</div>
+</body>
+</html>

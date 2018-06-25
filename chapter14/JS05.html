@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05生成斐波拉契数列</title>
+
+    <script src="../lib/js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+//            $("#generate").click(function () {
+//                var arr = create(10);
+//                console.log(arr.join(","));
+//                $("#text").val(arr.join(","));
+//            });
+
+
+            $("#generate").click(function () {
+                var g = generate(10);  //这一步得到的是一个generator对象.
+
+                var result = "";
+                //循环方式一：
+                while (true) {
+                    var obj = g.next();  //g.next()返回一个对象{value:xxx,done:boolean}
+                    if (obj.done) {
+                        break;
+                    }
+                    result += obj.value + ",";
+                }
+
+                //循环方式二：
+//                for (x of g) {
+//                    result += x + ",";
+//                }
+
+                result = result.substring(0, result.length - 1);
+                $("#text").val(result);
+            });
+        });
+
+        //使用普通函数生成
+        function create(max) {
+            var
+                a = 0,
+                b = 1,
+                arr = [0, 1];
+            while (arr.length < max) {
+                [a, b] = [b, a + b];
+                arr.push(b);
+            }
+            return arr;
+        }
+
+        //利用generator对象生成
+        function* generate(max) {
+            var
+                a = 0,
+                b = 1,
+                n = 0;
+            while (n < max) {
+                yield a;
+                [a, b] = [b, a + b];
+                n++;
+            }
+        }
+    </script>
+
+</head>
+<body>
+<button id="generate" type="button">生成斐波拉契数列</button>
+<input id="text" type="text">
+</body>
+</html>
+
+
+<noscript>
+    <script>
+        //        function* fib(max) {
+        //            var
+        //                t,
+        //                a = 0,
+        //                b = 1,
+        //                n = 0;
+        //            while (n < max) {
+        //                yield a;
+        //                [a, b] = [b, a + b];
+        //                n++;
+        //            }
+        //            return;
+        //        }
+        //    直接调用一个generator和调用函数不一样，fib(5)仅仅是创建了一个generator对象，还没有去执行它。
+        //    调用generator对象有两个方法，一是不断地调用generator对象的next()方法，一是使用for ... of
+        //    循环迭代generator对象，这种方式不需要我们自己判断done。
+
+        //        var f = fib(5);
+        //        f.next(); // {value: 0, done: false}
+        //        f.next(); // {value: 1, done: false}
+        //        f.next(); // {value: 1, done: false}
+        //        f.next(); // {value: 2, done: false}
+        //        f.next(); // {value: 3, done: false}
+        //        f.next(); // {value: undefined, done: true}
+        //
+        //        for (x of fib(5)) {
+        //            console.log(x);
+        //        }
+    </script>
+</noscript>

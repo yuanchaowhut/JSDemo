@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>10动态添加script脚本</title>
+
+    <script>
+        let code = "alert('load script!')";
+        loadScript(code);
+
+        function loadScript(code) {
+            let script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.text = code;
+            //document.documentElement-&ndash;&gt;html  document.documentElement.childNodes[0]--->head
+            document.documentElement.childNodes[0].appendChild(script);
+        }
+    </script>
+
+
+    <!--<script src="../lib/js/jquery-3.2.1.min.js"></script>-->
+    <!--<script>-->
+    <!--let code = "alert('load script!')";-->
+    <!--loadScript(code);-->
+
+    <!--function loadScript(code) {-->
+    <!--let script = document.createElement('script');-->
+    <!--script.type = 'text/javascript';-->
+    <!--script.text = code;-->
+    <!--$('head').append(script);-->
+    <!--}-->
+    <!--</script>-->
+</head>
+<body>
+
+</body>
+</html>

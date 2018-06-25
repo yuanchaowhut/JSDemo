@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>04数组的map、reduce、filter等高阶函数</title>
+    <title>04数组的map、reduce、filter、sort等高阶函数</title>
     <!--所谓高阶函数即接收函数作为参数的函数-->
 
     <script src="../lib/js/jquery-3.2.1.min.js"></script>
@@ -51,6 +51,28 @@
                 });
                 console.log("去重后的结果为：" + result);
             });
+
+
+            $("#sort").click(function () {
+                //sort实例:利用数组的sort方法进行排序
+                var arr = [1, 10, 20, 2, 3, 30];
+                //1.如果不传递任何参数，则返回结果：[1,10,2,20,3,30]，而如果是字符串的话，则按照ASCII码表顺序排序。
+                //2.通常规定，对于两个元素x和y，如果认为x < y，则返回-1，如果认为x == y，则返回0，如果认为x > y，则返回1，
+                // 这样，排序算法就不用关心具体的比较过程，而是根据比较结果直接排序。
+                var result = arr.sort(function (x, y) {
+                    if (x > y) {
+                        return 1;
+                    }
+                    if (x === y) {
+                        return 0
+                    }
+
+                    if (x < y) {
+                        return -1;
+                    }
+                });
+                console.log("排序后的结果为：" + result);
+            });
         })
 
     </script>
@@ -60,5 +82,6 @@
 <button id="map" type="button">map实例</button>
 <button id="reduce" type="button">reduce实例</button>
 <button id="filter" type="button">filter实例</button>
+<button id="sort" type="button">sort实例</button>
 </body>
 </html>
