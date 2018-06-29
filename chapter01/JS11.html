@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>11动态修改页面标题</title>
+
+    <script>
+        let titles = [
+            '第一个标题',
+            '第二个标题',
+            '第三个标题',
+            '第四个标题',
+            '第五个标题'
+        ];
+        window.onload = function () {
+            setInterval(setTitle,1000);
+        };
+
+        function setTitle() {
+            let index = Math.floor(Math.random() * titles.length);
+            document.title = titles[index];
+        }
+    </script>
+</head>
+<body>
+        <div>Hello World!</div>
+</body>
+</html>
